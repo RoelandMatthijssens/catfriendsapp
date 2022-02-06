@@ -8,9 +8,10 @@
 
 import React, {useState, useEffect} from 'react';
 import type {Node} from 'react';
-import {SafeAreaView, ScrollView, View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {CardList} from './src/components/CardList';
 import {Header} from './src/components/Header';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 const App: () => Node = () => {
   const [users, setUsers] = useState([]);
@@ -33,14 +34,14 @@ const App: () => Node = () => {
   const filteredUsers = users.filter(user => user.name.includes(searchString));
 
   return (
-    <SafeAreaView>
+    <SafeAreaProvider>
       <View>
         <ScrollView contentInsetAdjustmentBehavior="automatic">
           <Header onSearch={onSearch} searchString={searchString} />
           <CardList users={filteredUsers} />
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 };
 

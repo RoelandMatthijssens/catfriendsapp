@@ -3,7 +3,6 @@ import {View} from 'react-native';
 import {Card} from '../components/Card';
 
 export const CardList = ({users}) => {
-  console.log(users);
   return (
     <View>
       <View>
