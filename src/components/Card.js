@@ -12,7 +12,7 @@ export const Card = ({user}) => {
           <Text style={Styles.name}> {user.name} </Text>
           <Text style={Styles.email}> {user.email} </Text>
         </View>
-        <LikeButton />
+        <LikeButton id={`cat-${user.email}`} />
       </View>
     </View>
   );
