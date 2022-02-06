@@ -1,10 +1,10 @@
 import React from 'react';
 import {Image, View} from 'react-native';
-import Styles from '../utils/Styles';
+import {StyleSheet} from 'react-native';
 
-const Avatar = ({user}): Node => {
+export const Avatar = ({user}) => {
   return (
-    <View style={Styles.sectionContainer}>
+    <View>
       <Image
         style={Styles.avatar}
         source={{
@@ -15,4 +15,9 @@ const Avatar = ({user}): Node => {
   );
 };
 
-export default Avatar;
+const Styles = StyleSheet.create({
+  avatar: {
+    width: 200,
+    height: 200,
+  },
+});

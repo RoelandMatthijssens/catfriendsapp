@@ -8,23 +8,13 @@
 
 import React, {useState, useEffect} from 'react';
 import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  useColorScheme,
-  View,
-} from 'react-native';
-import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
-import CardList from './src/components/CardList';
+import {SafeAreaView, ScrollView, View} from 'react-native';
+import {CardList} from './src/components/CardList';
+import {Header} from './src/components/Header';
 
 const App: () => Node = () => {
   const [users, setUsers] = useState([]);
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const [searchString, setSearchString] = useState('');
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/users')
@@ -36,20 +26,20 @@ const App: () => Node = () => {
       });
   }, []);
 
+  const onSearch = newSearchString => {
+    setSearchString(newSearchString);
+  };
+
+  const filteredUsers = users.filter(user => user.name.includes(searchString));
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <Header />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <CardList users={users} />
-        </View>
-      </ScrollView>
+    <SafeAreaView>
+      <View>
+        <ScrollView contentInsetAdjustmentBehavior="automatic">
+          <Header onSearch={onSearch} searchString={searchString} />
+          <CardList users={filteredUsers} />
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
