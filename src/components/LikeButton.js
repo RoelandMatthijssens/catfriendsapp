@@ -1,9 +1,13 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Vibration} from 'react-native';
 import {Icon} from 'react-native-elements';
 
 export const LikeButton = () => {
   const [likes, setLikes] = useState(0);
+  const like = () => {
+    Vibration.vibrate(20);
+    setLikes(likes + 1);
+  };
   return (
     <View style={Styles.likeContainer}>
       <Icon
@@ -11,7 +15,7 @@ export const LikeButton = () => {
         name="heart"
         type="font-awesome"
         color="red"
-        onPress={() => setLikes(likes + 1)}
+        onPress={like}
       />
       <Text style={Styles.likeCounter}>{likes}</Text>
     </View>
